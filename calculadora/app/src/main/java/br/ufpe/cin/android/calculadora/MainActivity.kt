@@ -2,12 +2,95 @@ package br.ufpe.cin.android.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Cria os listeners para cada botão
+        btn_0.setOnClickListener {
+            text_calc.text.append("0")
+        }
+
+        btn_1.setOnClickListener {
+            text_calc.text.append("1")
+        }
+
+        btn_2.setOnClickListener {
+            text_calc.text.append("2")
+        }
+
+        btn_3.setOnClickListener {
+            text_calc.text.append("3")
+        }
+
+        btn_4.setOnClickListener {
+            text_calc.text.append("4")
+        }
+
+        btn_5.setOnClickListener {
+            text_calc.text.append("5")
+        }
+
+        btn_6.setOnClickListener {
+            text_calc.text.append("6")
+        }
+
+        btn_7.setOnClickListener {
+            text_calc.text.append("7")
+        }
+
+        btn_8.setOnClickListener {
+            text_calc.text.append("8")
+        }
+
+        btn_9.setOnClickListener {
+            text_calc.text.append("9")
+        }
+
+        btn_Dot.setOnClickListener {
+            text_calc.text.append(".")
+        }
+
+        btn_Divide.setOnClickListener {
+            text_calc.text.append("/")
+        }
+
+        btn_Subtract.setOnClickListener {
+            text_calc.text.append("-")
+        }
+
+        btn_Add.setOnClickListener {
+            text_calc.text.append("+")
+        }
+
+        btn_Multiply.setOnClickListener {
+            text_calc.text.append("*")
+        }
+
+        btn_Power.setOnClickListener {
+            text_calc.text.append("^")
+        }
+
+        btn_LParen.setOnClickListener {
+            text_calc.text.append("(")
+        }
+
+        btn_RParen.setOnClickListener {
+            text_calc.text.append(")")
+        }
+
+        btn_Equal.setOnClickListener {
+            text_calc.setText(eval( text_calc.text.toString() ).toString())
+        }
+
+        btn_Clear.setOnClickListener {
+            text_calc.setText("")
+        }
     }
 
 
