@@ -2,6 +2,7 @@ package br.ufpe.cin.android.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -85,7 +86,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_Equal.setOnClickListener {
-            text_calc.setText(eval( text_calc.text.toString() ).toString())
+
+            try {
+                var res = eval( text_calc.text.toString() ).toString()
+                text_calc.setText(res)
+            } catch (e : RuntimeException){
+                Toast.makeText(
+                    this,
+                    "Malformed Expression",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
         }
 
         btn_Clear.setOnClickListener {
