@@ -89,8 +89,9 @@ class MainActivity : AppCompatActivity() {
 
             try {
                 var res = eval( text_calc.text.toString() ).toString()
-                text_calc.setText(res)
+                text_info.text = res
             } catch (e : RuntimeException){
+                text_info.text = "NaN"
                 Toast.makeText(
                     this,
                     "Malformed Expression",
@@ -103,8 +104,39 @@ class MainActivity : AppCompatActivity() {
 
         btn_Clear.setOnClickListener {
             text_calc.setText("")
+            text_info.text = ""
         }
     }
+
+    // Cria companion object para instanciar as variáveis que precisam ser mantidas na mudança de configuração
+    companion object {
+        val STATE_CURRENT_CALCULATION = ""
+        val STATE_LAST_RESULT = ""
+    }
+
+    // Quando ocorre uma mudança de configuração (e.g. girar a tela) essa função será chamada.
+    // Caso o parâmetro passado não seja nulo, as strings correspondentes do calculo atual e o resultado atual
+    // serão salvas nas variáveis instanciadas pelo companion object acima.
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.run {
+            putString(STATE_CURRENT_CALCULATION, text_calc.text.toString())
+            putString(STATE_LAST_RESULT, text_info.text.toString())
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    // Chamado após o reinicio do lifecycle da aplicação, caso exista uma instancia valida para ser restaurada.
+    // dessa forma extraimos os valores guardados previamente nas variaveis do companion object e utilizamo-os
+    // para restaurar as strings nos campos correspondentes. (text_calc e text_info)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.run {
+            text_calc.setText(getString(STATE_CURRENT_CALCULATION))
+            text_info.text = getString(STATE_LAST_RESULT)
+        }
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    // sempre é necessário chamar a função da superclasse para que o state seja propriamente salvo/restaurado
 
 
     //Como usar a função:
